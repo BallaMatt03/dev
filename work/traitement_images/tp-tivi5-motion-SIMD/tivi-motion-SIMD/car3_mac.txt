@@ -1,0 +1,11 @@
+src_path = /home/matthias/car3/
+filename = car_3
+ndigit   = 3
+dst_path = /home/matthias/car3/
+width  = 320
+height = 240
+tstart  = 0
+tstop   = 199
+tstep   = 1
+save       = TRUE
+save_debug = TRUE

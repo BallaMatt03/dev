@@ -1,0 +1,17 @@
+Matthias Ballarini
+TD 5
+05/11/2014
+
+Exercice 1 :
+
+Exercice 2 :
+Nous appliquons le glScalef() uniquement aux textures.
+Il s'agit dont de procéder dans le mode GL_TEXTURE :
+glMatrix
+
+Exercice 3 : 
+
+Le plan du clipping de la porte (pour ne pas qu'elle apparaisse sous le sol) n'est pas le meme que celui du robot. Pour le plan du clipping de la porte j'ai choisi comme valeurs : {0,1,0,0}
+
+Pour limiter le clipping à l'entrée de la porte il suffit de désactiver le clipping sur le robot lorsque la position de sa base sur l'axe y n'est plus dans l'entrée de la porte (c'est à dire entre les deux poteaux de l'entrée)
+

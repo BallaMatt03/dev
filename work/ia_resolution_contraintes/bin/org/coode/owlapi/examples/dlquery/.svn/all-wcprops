@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/owlapi/!svn/ver/1693/v3/trunk/examples/src/main/java/org/coode/owlapi/examples/dlquery
+END
+DLQueryExample.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/owlapi/!svn/ver/1693/v3/trunk/examples/src/main/java/org/coode/owlapi/examples/dlquery/DLQueryExample.java
+END
+DLQueryParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/owlapi/!svn/ver/1458/v3/trunk/examples/src/main/java/org/coode/owlapi/examples/dlquery/DLQueryParser.java
+END
+DLQueryPrinter.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/owlapi/!svn/ver/1585/v3/trunk/examples/src/main/java/org/coode/owlapi/examples/dlquery/DLQueryPrinter.java
+END
+DLQueryEngine.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/owlapi/!svn/ver/1585/v3/trunk/examples/src/main/java/org/coode/owlapi/examples/dlquery/DLQueryEngine.java
+END

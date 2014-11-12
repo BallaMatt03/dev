@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[T1]{fontenc}  % replace by the encoding you are using
+
+\usepackage{colortbl}
+\definecolor{grey}{rgb}{0.9,0.9,0.9}
+\definecolor{forestgreen}{rgb}{0.13,0.54,0.13}
+\definecolor{dockerblue}{rgb}{0.11,0.56,0.98}
+\definecolor{orange}{rgb}{0.64,0.16,0.16}
+\newcommand{\remAdeline}[1]{\color{dockerblue}{\em{AN : #1}}\color{black}}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{multirow}
+
+
+\author{}
+\title{\LARGE\bfseries IA et résolution de contraintes  : TP2 (À rendre) \\[10pt]
+ \Large Validation des concepts généraux d'inclusion en regardant une ontologie}
+\date{\vspace{-1cm} 04/11/2014}
+\begin{document}
+\maketitle
+
+L’objectif de ce TP est d'utiliser un raisonneur pour vérifier la validation des axiomes de TBox par apport une ontologie. Formellement, supposant que $\alpha$ est une axiome de TBox et $O$ est une ontologie, on dit que $\alpha$ est valide par apport à $O$ si $\alpha$ est une conséquence logique d'$O$, c'est à dire, $O\models \alpha$ selon la sémantique de la logique de description.
+\begin{itemize}
+\item {\bf L'entré:} un fichier d'ontologie ``GRO.xml'' et un fichier d'axiome de TBox ``gcis''. Le fichier d'ontologie peut-être lu par OWLAPI. Dans le fichier ``gics'', un vocabulaire qui termine par ``\_cncpt'' est traduit directement comme un concept qui garde le même nom ; et le symbole ``$\bot$'' correspond au concept vide owl:Nothing (ou $\bot$ selon la syntaxe de la logique de description). La traduction de chaque ligne du fichier ``gics'' au axiome de TBox est fondé sur la fonction $\pi(\cdot)$ définie comme ci-dessous qui fournie la traduction des constructeurs {\bf GCI, and, exists}  (voir le fichier ``gics'') aux constructeurs de la logique de description :
+\begin{eqnarray*}
+\pi(X )\sqsubseteq \pi(Y) &\longleftarrow&	\pi(GCI \ \ \ X \ \ \ Y) \\
+\pi(C_1)\sqcap \pi(C_2)\sqcap\cdots\sqcap \pi(C_n) &\longleftarrow& \pi((and\ \ \ C_1 \ \ \ C_2 \cdots \ \ \ C_n))\\
+\exists R. \pi(C) &\longleftarrow& (exists\ \ \ R \ \ \ C)\\
+\end{eqnarray*}
+Par exemple :
+``(gci (and DNA\_cncpt Eukaryote\_cncpt) ⊥)'' correspond au axiom : $$DNA\_cncpt\ \sqcap\ Eukaryote\_cncpt\ \sqsubseteq\ \bot$$
+``(gci (and (exists LocatedIn (and Promoter\_cncpt))) $\bot$) '' correspond au axiom :
+$$ \exists LocatedIn.\ Promoter\_cncpt\ \sqsubseteq\ \bot$$
+``(gci (and (exists LocatedIn (and ProteinDomain\_cncpt Gene\_cncpt))) (and Localization\_cncpt))'' correspond au axiom : $$ \exists LocatedIn. (ProteinDomain\_cncpt \sqcap Gene\_cncpt) \ \sqsubseteq Localization\_cncpt$$
+Toutes les lignes qui ne suivent pas la syntaxe ci-dessus peuvent être ignorées.
+\item {\bf Sortie:} Deux fichiers (validGCIs.txt et validGCIs.xml) qui ne contient que  les axiomes valides par apport à l'ontologie d'entrée : l'un  dans la format de ``gcis'' et l'autre dans le format d'ontologie OWL.
+\end{itemize}
+Vous pouvez réaliser cette tâche de façon différente (pour étape 2). Choisez une que vous préférez :
+\begin{itemize}
+\item Étape 1 : écrire une fonction de JAVA qui peut créer une ontologie GRO du fichier ``GRO.xml'', et créer une nouvelle ontologie validGCIs (sauvegarder le dans le fichier validGCIs.xml).
+\item Étape 2 : écrire une fonction de JAVA qui peut traduire chaque ligne  à deux concepts $X$ et $Y$, ensuite décider si l'axiome correspond à cette ligne $X\sqsubseteq Y$ est valide en regardent GRO en utilisant le raisonneur HermiT. Si oui, enregistrez la ligne dans un fichier validGCIs.txt, et ajoutez l'axiome  dans l'ontologie validGCIs.
+\item (ou bien) Étape 2' : écrire une fonction de JAVA qui peut traduire chaque ligne (de bonne format) à un axiome ontologique, en utilisant OWLAPI :
+
+\qquad \ \ public OWLSubClassOfAxiom formatOWLAxiom(String line);
+
+Écrier ensuite une fonction pour décider si un axiome retourné de cette fonction est valide par apport l'ontologie GRO en utilisant le raisonneur HermiT. Si oui, enregistrez la ligne dans un fichier validGCIs.txt, et ajoutez l'axiome  dans l'ontologie validGCIs. 
+\end{itemize}
+\end{document}
+

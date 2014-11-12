@@ -1,0 +1,12 @@
+src_path = E:/Sequences/car3/
+filename = car_3
+ndigit   = 3
+filetype = PGM
+dst_path = E:/Sequences/car3/
+largeur = 320
+hauteur = 240
+tstart  = 0
+tstop   = 199
+tstep   = 1
+save       = FALSE
+save_debug = FALSE
