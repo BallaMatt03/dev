@@ -15,7 +15,7 @@ extern "C" {
 #endif
 
 void vec_diff(vuint8 x0, vuint8 x1, vuint8 *o);
-void vec_cmp_threshold(vuint8 o_128, uint8 threshold_128, vuint8 *e);
+void vec_cmp_threshold(vuint8 o_128, vuint8 threshold_128, vuint8 *e);
 void vec_cmp_inc_dec(vuint8* m128, vuint8 x128);
 void test_cmp_mul(vuint8* v128, vuint8 o128, vuint8 N);
 

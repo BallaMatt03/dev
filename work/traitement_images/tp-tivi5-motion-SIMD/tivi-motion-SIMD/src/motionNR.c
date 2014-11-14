@@ -50,7 +50,10 @@ void FrameDifference_1Step(uint8 **I0, uint8 **I1, int i0, int i1, int j0, int j
             d = abs(x1-x0);
             if(d < threshold){
                 e=1;
-            } else{e=0;}
+            }
+            else{
+                e=0;
+            }
             
             D[i][j] = d;
             S[i][j] = e;

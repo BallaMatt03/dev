@@ -58,7 +58,7 @@ void test_basic_FD(int argc, char* argv[])
         puts("il faut indiquer ici le path pour lire le fichier de configuration de la sequence ...");
         puts("il faut aussi indiquer *dans* le fichier les src_path et dst_path ...");
         //sequence_filename = "d:/code/config/car3_win.txt";   
-        sequence_filename = "/home/matthias/Dropbox/dev/work/traitement_images/tp-tivi5-motion-SIMD/tivi-motion-SIMD/car3_mac.txt";   
+        sequence_filename = "/home/matthias/dev/dev/work/traitement_images/tp-tivi5-motion-SIMD/tivi-motion-SIMD/car3_mac.txt";   
     } else {
         // sequence passee en ligne de commande
         sequence_filename = argv[1];
@@ -199,7 +199,7 @@ void test_basic_SD(int argc, char* argv[])
         puts("il faut indiquer ici le path pour lire le fichier de configuration de la sequence ...");
         puts("il faut aussi indiquer *dans* le fichier les src_path et dst_path ...");
         sequence_filename = "d:/code/config/car3_win.txt";   
-        sequence_filename = "/Volumes/Delta1/Users/lacas/Code/TP/image/filtre/car3_mac.txt";   
+        sequence_filename = "/home/matthias/dev/dev/work/traitement_images/tp-tivi5-motion-SIMD/tivi-motion-SIMD/car3_mac.txt";   
     } else {
         // sequence passee en ligne de commande
         sequence_filename = argv[1];

@@ -61,9 +61,9 @@ void main_FrameDifference_SSE2(int argc, char *argv[])
     dst_path = "../SD_SSE2/";
     
     // exemple pour Mac/Linux
-    src_path = "/Volumes/Delta1/Sequences/car3/"; 
+    src_path = "/home/matthias/car3/"; 
     filename = "car_3";
-    dst_path = "/Volumes/Delta1/SequencesR/car3/FD_SSE/";
+    dst_path = "/home/matthias/car3/";
     
     ndigit   = 3;
     width    = 320;
@@ -208,9 +208,9 @@ void main_SigmaDelta_SSE2(int argc, char *argv[])
     dst_path = "../SD_SSE2/";
     
     // exemple pour Mac/Linux
-    src_path = "/Volumes/Delta1/Sequences/car3/"; 
+    src_path = "/home/matthias/car3/"; 
     filename = "car_3";
-    dst_path = "/Volumes/Delta1/SequencesR/car3/SD_SSE/";
+    dst_path = "/home/matthias/car3/";
     
     ndigit   = 3;
     
@@ -316,6 +316,7 @@ void main_SigmaDelta_SSE2(int argc, char *argv[])
 void test_motionNR_SSE(int argc, char *argv[])
 // -------------------------------------------
 {
+    printf("test_motionNR_SSE\n");
     main_FrameDifference_SSE2(argc, argv);
     main_SigmaDelta_SSE2(argc, argv);
 }

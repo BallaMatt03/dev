@@ -28,43 +28,64 @@ double dtime()
     return (double) _rdtsc();
 }
 */
+
 /* ------------------------------------------------------------------------- */
 void vec_diff(vuint8 x0, vuint8 x1, vuint8 *o)
 /* ------------------------------------------------------------------------- */
 {           
-    *o = _mm_sub_epi16(_mm_max_epi16(x0, x1), _mm_min_epi16(x0, x1));
+    *o = _mm_sub_epi8(_mm_max_epu8(x0, x1), _mm_min_epu8(x0, x1));
 }
 
-//2.2
 /* ------------------------------------------------------------------------- */
-void vec_cmp_threshold(vuint8 o_128, uint8 threshold_128, vuint8 *e)
+void vec_cmp_threshold(vuint8 o_128, vuint8 threshold_128, vuint8 *e)
 /* ------------------------------------------------------------------------- */
 {
-    *e = _mm_cmplt_epi8(threshold_128, o_128);
+    *e = _mm_cmplt_epi8(o_128, threshold_128);
 }
 
-//3.1
 /* ------------------------------------------------------------------------- */
 void vec_cmp_inc_dec(vuint8* m128, vuint8 x128)
 /* ------------------------------------------------------------------------- */
 {
-    vuint8 complt = _mm_cmplt_epi16(*m128, x128);
-    vuint8 compgt = _mm_cmpgt_epi16(*m128, x128);
+    vuint8 complt = _mm_cmplt_epi8(*m128, x128);
+    vuint8 compgt = _mm_cmpgt_epi8(*m128, x128);
+
+    vuint8 one = _mm_set1_epi8(1);
     
-    inc = _mm_and_si128(complt, one);
-    dec = _mm_and_si128(compgt, one);
+    vuint8 inc = _mm_and_si128(complt, one);
+    vuint8 dec = _mm_and_si128(compgt, one);
     
-    *m128 = _mm_add_si128(*m128, inc);
-    *m128 = _mm_add_si128(*m128, dec);
+    *m128 = _mm_add_epi8(*m128, inc);
+    *m128 = _mm_add_epi8(*m128, dec);
 }
 
-//3.2
 /* ------------------------------------------------------------------------- */
 void test_cmp_mul(vuint8* v128, vuint8 o128, vuint8 N)
 /* ------------------------------------------------------------------------- */
 {
     vuint8 res, total = o128;
     
+    vuint8 one = _mm_set1_epi8(1);
+    vuint8 two = _mm_adds_epi8(one, one);
+    vuint8 three = _mm_adds_epi8(one, two);
+    vuint8 four = _mm_adds_epi8(two, two);
+    vuint8 five = _mm_adds_epi8(two, three);
+
+    //_mm_cmpeq_epi8(N, two);
+
+    vuint8 result = _mm_cmpeq_epi8(N, two);
+    total=_mm_or_si128(_mm_and_si128(result,_mm_adds_epi8(o128, o128)),_mm_andnot_si128(result,result));
+
+    result = _mm_cmpeq_epi8(N, three);
+    total=_mm_or_si128(_mm_and_si128(result,_mm_adds_epi8(o128, _mm_adds_epi8(o128, o128))),_mm_andnot_si128(result,result));
+
+    result = _mm_cmpeq_epi8(N, four);
+    total=_mm_or_si128(_mm_and_si128(result,_mm_adds_epi8(_mm_adds_epi8(o128, o128), _mm_adds_epi8(o128, o128))),_mm_andnot_si128(result,result));
+
+    result = _mm_cmpeq_epi8(N, five);
+    total=_mm_or_si128(_mm_and_si128(result,_mm_adds_epi8(_mm_adds_epi8(o128, o128), _mm_adds_epi8(o128, _mm_adds_epi8(o128, o128)))),_mm_andnot_si128(result,result));
+
+/*
     switch (N) {
         case 2:
             total = _mm_adds_epi16(o128, o128);
@@ -81,8 +102,8 @@ void test_cmp_mul(vuint8* v128, vuint8 o128, vuint8 N)
             total = _mm_adds_epi16(res, _mm_adds_epi16(o128, res));
             break;    
     }
-    
-    vec_cmp_inc_dec(*v128, total);
+*/
+    vec_cmp_inc_dec(v128, total);
 }
 
 //4.1
@@ -158,8 +179,8 @@ void FrameDifference_1Step_SSE(vuint8 **I0, vuint8 **I1, vuint8 **D, vuint8 **S,
             x1 = _mm_load_si128(&I1[i][j]);
             
             // A COMPLETER
-            vec_diff(x0, x1, o);
-            //vec_cmp_threshold(x0, x1, &e);//, vthreshold);
+            vec_diff(x0, x1, &o);
+            vec_cmp_threshold(x0, x1, &e);
 
             // store
             _mm_store_si128(&D[i][j], o);
@@ -214,6 +235,7 @@ void SigmaDelta_1Step_SSE(vuint8 **I, vuint8 **M, vuint8 **O, vuint8 **V, vuint8
     vuint8 lt, gt;
     vuint8 ko;
     vuint8 inc, z; // zero flag
+    vuint8 result;
   
     zero = _mm_set1_epi8(0);
     one  = _mm_set1_epi8(1);
@@ -231,9 +253,18 @@ void SigmaDelta_1Step_SSE(vuint8 **I, vuint8 **M, vuint8 **O, vuint8 **V, vuint8
             x = _mm_load_si128(&I[i][j]);
             m = _mm_load_si128(&M[i][j]);
             v = _mm_load_si128(&V[i][j]);
-
             
             // A COMPLETER
+            vec_cmp_inc_dec(&m, x);
+
+            // Valeur absolue
+            o = _mm_sub_epi8(_mm_min_epu8(x, m),_mm_max_epu8(x, m));
+
+            test_cmp_mul(&v, o, k128);
+
+            // Dernier test
+            result = _mm_cmplt_epi8(o, v);
+            e = _mm_or_si128(_mm_and_si128(result,zero),_mm_andnot_si128(one,result));
                                    
             // store
             _mm_store_si128(&M[i][j], m);
