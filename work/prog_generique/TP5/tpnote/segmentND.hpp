@@ -8,7 +8,7 @@ template<typename Type>
 using segmentND = std::array<pointND<Type>,2>;
 
 template<typename Type, int Index>
-struct coord<segmentND<pointND<Type>>,Index>
+struct coord<segmentND<Type>,Index>
 {
   using type = Type;
 };

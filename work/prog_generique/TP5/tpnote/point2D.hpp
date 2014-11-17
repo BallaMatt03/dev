@@ -7,14 +7,6 @@
 template<typename Type>
 using point2D = std::array<Type,2>;
 
-/*
-template<typename Type>
-struct point2D
-{
-	public:
-		std::array<Type, 2> lesCoordonnees;
-};
-*/
 template<typename Type, int Index>
 struct coord<point2D<Type>,Index>
 {

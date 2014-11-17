@@ -8,7 +8,7 @@ template<typename Type>
 using segment3D = std::array<point3D<Type>,2>;
 
 template<typename Type, int Index>
-struct coord<segment3D<point3D<Type>>,Index>
+struct coord<segment3D<Type>,Index>
 {
   using type = Type;
 };

@@ -13,7 +13,6 @@
 #include <numeric>
 #include <boost/type_traits/is_same.hpp>
 
-
 /*
 //Distance entre deux points
 template<typename P1, typename P2>
@@ -30,128 +29,9 @@ double distance(P1 const& p1, P2 const& p2)
 
   return std::sqrt(r);
 }
-
-//Distance entre un segment2D et un point2D
-template<typename Type1, typename Type2>
-double distance(segment2D<Type1> const& s, point2D<Type2> const& p)
-{
-  //Si le segment est nul : retourner la distance entre un point du segment et le point2D
-  double lengthSegment = distance(s[0],s[1]);
-  if(lengthSegment == 0) return distance(s[0],p);
-  
-  // Coordonnées du vecteur que fait le point p avec le premier point du segment
-  auto vecAx = p.at(0) - s.at(0).at(0);
-  auto vecAy = p.at(1) - s.at(0).at(1);
-
-  // Coordonnées du vecteur que fait le premier point du segment avec le second
-  auto vecBx = s.at(1).at(0) - s.at(0).at(0);
-  auto vecBy = s.at(1).at(1) - s.at(0).at(1);
-
-  // On calcule le projeté orthogonal Pprime de p sur s paramétré par t
-  auto t = (vecAx * vecBx + vecAy * vecBy) / ( pow(vecBx,2) + pow(vecBy,2) );
-
-  // Si P' € s alors t €]0;1] sinon on le ramène à l'extréminité la plus proche sur le segment
-  if( !(t >= 0 && t <= 1)) t = fmin( fmax(0,t), 1);
-
-  // On obtient la distance entre p et s en calculant la distance entre p et Pprime
-  auto Pprimex = s.at(0).at(0) + t*vecBx;
-  auto Pprimey = s.at(0).at(1) + t*vecBy;
-
-  // retourner la racine carré de la somme des carré des coordonées
-  return std::sqrt( pow(Pprimey - p.at(1), 2) + pow(Pprimex - p.at(0),2) );
-}
-
-
-
-
-
-
-//Distance entre un segment3D et un point3D
-template<typename Type1, typename Type2>
-double distance(segment3D<Type1> const& s, point3D<Type2> const& p)
-{
-  //Si le segment est nul : retourner la distance entre un point du segment et le point3D
-  double lengthSegment = distance(s[0],s[1]);
-  if(lengthSegment == 0) return distance(s[0],p);
-  
-  // Coordonnées du vecteur que fait le point p avec le premier point du segment
-  auto vecAx = p.at(0) - s.at(0).at(0);
-  auto vecAy = p.at(1) - s.at(0).at(1);
-  auto vecAz = p.at(2) - s.at(0).at(2);
-
-  // Coordonnées du vecteur que fait le premier point du segment avec le second
-  auto vecBx = s.at(1).at(0) - s.at(0).at(0);
-  auto vecBy = s.at(1).at(1) - s.at(0).at(1);
-  auto vecBz = s.at(1).at(2) - s.at(0).at(2);
-
-  // On calcule le projeté orthogonal Pprime de p sur s paramétré par t
-  auto t = (vecAx * vecBx + vecAy * vecBy + vecAz * vecBz) / ( pow(vecBx,2) + pow(vecBy,2) + pow(vecBz,2) );
-
-  // Si P' € s alors t €]0;1] sinon on le ramène à l'extréminité la plus proche sur le segment
-  if( !(t >= 0 && t <= 1)) t = fmin( fmax(0,t), 1);
-
-  // On obtient la distance entre p et s en calculant la distance entre p et Pprime
-  auto Pprimex = s.at(0).at(0) + t*vecBx;
-  auto Pprimey = s.at(0).at(1) + t*vecBy;
-  auto Pprimez = s.at(0).at(2) + t*vecBz;
-
-  // retourner la racine carré de la somme des carré des coordonées
-  return std::sqrt( pow(Pprimey - p.at(1), 2) + pow(Pprimex - p.at(0),2) + pow(Pprimez - p.at(2),2) );
-}
-
-//Distance entre un segmentND et un pointND
-
-//Distance entre un segment et un point
-template <class Point>
-class Segment
-{
-  private:
-    std::array<Point,2> lesPoints;
-};
-
-template <typename Point1, typename Point2>
-double distance(Segment<Point1> const& s, Point2 const& p)
-{
-  //Si le segment est nul : retourner la distance entre un point du segment et le point3D
-  double lengthSegment = distance(s[0],s[1]);
-  if(lengthSegment == 0) return distance(s[0],p);
-  
-  // Coordonnées du vecteur que fait le point p avec le premier point du segment
-  auto vecAx = p.at(0) - s.at(0).at(0);
-  auto vecAy = p.at(1) - s.at(0).at(1);
-  auto vecAz = p.at(2) - s.at(0).at(2);
-
-  // Coordonnées du vecteur que fait le premier point du segment avec le second
-  auto vecBx = s.at(1).at(0) - s.at(0).at(0);
-  auto vecBy = s.at(1).at(1) - s.at(0).at(1);
-  auto vecBz = s.at(1).at(2) - s.at(0).at(2);
-
-  // On calcule le projeté orthogonal Pprime de p sur s paramétré par t
-  auto t = (vecAx * vecBx + vecAy * vecBy + vecAz * vecBz) / ( pow(vecBx,2) + pow(vecBy,2) + pow(vecBz,2) );
-
-  // Si P' € s alors t €]0;1] sinon on le ramène à l'extréminité la plus proche sur le segment
-  if( !(t >= 0 && t <= 1)) t = fmin( fmax(0,t), 1);
-
-  // On obtient la distance entre p et s en calculant la distance entre p et Pprime
-  auto Pprimex = s.at(0).at(0) + t*vecBx;
-  auto Pprimey = s.at(0).at(1) + t*vecBy;
-  auto Pprimez = s.at(0).at(2) + t*vecBz;
-
-  // retourner la racine carré de la somme des carré des coordonées
-  return std::sqrt( pow(Pprimey - p.at(1), 2) + pow(Pprimex - p.at(0),2) + pow(Pprimez - p.at(2),2) );
-}
-
-
 */
 
-
-
-
-
-
-/*
-  Définir la structure enable_if comme vu en cours
-*/
+//Définir la structure enable_if comme vu en cours
 template<bool, typename T = void> 
   struct enable_if {};
 
@@ -160,86 +40,147 @@ template<typename T>
     typedef T type;
   };
 
-
-template<typename T> T testfun() {}
-
-template<> int testfun<int>() {}
-
-/*
-  Dans un namespace objets définir les structures is_rectangle et is_square en utilisant boost::is_same 
-*/
+//Dans un namespace objets définir les structures is_point.. et is_segment.. en utilisant boost::is_same 
 namespace objets
 {
   template<typename T, typename TypePrimitif>
-    struct is_point   : boost::is_same<point2D<TypePrimitif>,T> {};
+    struct is_point2D   : boost::is_same<point2D<TypePrimitif>,T> {};
   template<typename T, typename TypePrimitif>
-    struct is_segment : boost::is_same<segment2D<TypePrimitif>,T> {};
+    struct is_point3D   : boost::is_same<point3D<TypePrimitif>,T> {};
+  template<typename T, typename TypePrimitif>
+    struct is_pointND   : boost::is_same<pointND<TypePrimitif>,T> {};
+
+  template<typename T, typename TypePrimitif>
+    struct is_segment2D : boost::is_same<segment2D<TypePrimitif>,T> {};
+  template<typename T, typename TypePrimitif>
+    struct is_segment3D : boost::is_same<segment3D<TypePrimitif>,T> {};
+  template<typename T, typename TypePrimitif>
+    struct is_segmentND : boost::is_same<segmentND<TypePrimitif>,T> {};
 }
 
-/*
-  Dans un namespace sfinae définir les spécialisations de perimeter en utilisants les définitions précédentes
-*/
+//Dans un namespace sfinae définir les spécialisations de distance en utilisants les définitions précédentes
 namespace sfinae
 {
-  template<typename Type> double distance(
-                          Type const& t,
-                          Type const& p,
-                          typename enable_if<objets::is_point<Type, coord_t<Type>>::value>::type* dummy=0)
+  template<typename Type1, typename Type2> double distance(
+                          Type1 const& p1,
+                          Type2 const& p2,
+                          typename enable_if<
+                          (objets::is_point2D<Type1, coord_t<Type1>>::value || objets::is_point3D<Type1, coord_t<Type1>>::value
+                          || objets::is_pointND<Type1, coord_t<Type1>>::value)
+                          &&
+                          (objets::is_point2D<Type2, coord_t<Type2>>::value || objets::is_point3D<Type2, coord_t<Type2>>::value
+                          || objets::is_pointND<Type2, coord_t<Type2>>::value)
+                          >::type* dummy=0)
   {
-    // Point et point
-    return -2;
+    // Distance entre point et point
+    double r{0};
+    auto s = std::max(size(p1),size(p2));
+
+    for(std::size_t i=0;i<s;++i)
+    {
+      auto d = at(p1,i) - at(p2,i);
+      r += d*d;
+    }
+
+    return std::sqrt(r);
   }
   
+  // Distance segment-point
   template<typename Type, typename Point> double distance(
-                          Type const& t,
+                          Type const& s,
                           Point const& p,
-                          typename enable_if<objets::is_segment<Type, coord_t<Type>>::value>::type* dummy=0) 
+                          typename enable_if<
+                          (objets::is_segment2D<Type, coord_t<Type>>::value
+                          || objets::is_segment3D<Type, coord_t<Type>>::value
+                          || objets::is_segmentND<Type, coord_t<Type>>::value)
+                          &&
+                          (objets::is_point2D<Point, coord_t<Point>>::value
+                          || objets::is_point3D<Point, coord_t<Point>>::value
+                          || objets::is_pointND<Point, coord_t<Point>>::value)
+                          >::type* dummy=0) 
   {
-    // Segment et point
-    return -3;
+    // Distance entre segment et point
+    //Si le segment est nul : retourner la distance entre un point du segment et le point3D
+    double lengthSegment = sfinae::distance(s[0],s[1]);
+    if(lengthSegment == 0) return sfinae::distance(s[0],p);
+    
+    // Coordonnées du vecteur que fait le point p avec le premier point du segment
+    double r{0}, r_pow{0};
+    std::vector<coord_t<Type>> vecBVector;
+    auto siz = std::max(size(s),size(p));
+
+    for(std::size_t i=0;i<siz;++i)
+    {
+      auto vecA = at(p,i) - at(s.at(0),i);
+      auto vecB = at(s.at(1),i) - at(s.at(0),i);
+      vecBVector.push_back(vecB);
+      r += vecA * vecB;
+      r_pow += pow(vecB,2);
+    }
+
+    // On calcule le projeté orthogonal Pprime de p sur s paramétré par t
+    auto t = r / r_pow;
+
+    // Si P' € s alors t €]0;1] sinon on le ramène à l'extréminité la plus proche sur le segment
+    if( !(t >= 0 && t <= 1)) t = fmin( fmax(0,t), 1);
+
+    r = 0;
+    for(std::size_t j=0;j<siz;++j)
+    {
+      r += pow((at(s.at(0),j) + t*vecBVector.at(j)) - at(p,j),2);
+    }
+
+    // retourner la racine carré de la somme des carré des coordonnées
+    return std::sqrt(r);
+  }
+
+  // Distance point-segment
+  template<typename Point, typename Type> double distance(
+                          Point const& p,
+                          Type const& s,
+                          typename enable_if<
+                          (objets::is_segment2D<Type, coord_t<Type>>::value
+                          || objets::is_segment3D<Type, coord_t<Type>>::value
+                          || objets::is_segmentND<Type, coord_t<Type>>::value)
+                          &&
+                          (objets::is_point2D<Point, coord_t<Point>>::value
+                          || objets::is_point3D<Point, coord_t<Point>>::value
+                          || objets::is_pointND<Point, coord_t<Point>>::value)
+                          >::type* dummy=0) 
+  {
+    return distance(s,p);
+  }
+
+  // Distance segment-segment
+  template<typename Type1, typename Type2> double distance(
+                          Type1 const& s1,
+                          Type2 const& s2,
+                          typename enable_if<
+                          (objets::is_segment2D<Type1, coord_t<Type1>>::value 
+                          || objets::is_segment3D<Type1, coord_t<Type1>>::value
+                          || objets::is_segmentND<Type1, coord_t<Type1>>::value)
+                          &&
+                          (objets::is_segment2D<Type2, coord_t<Type2>>::value 
+                          || objets::is_segment3D<Type2, coord_t<Type2>>::value
+                          || objets::is_segmentND<Type2, coord_t<Type2>>::value)
+                          >::type* dummy=0)
+  {
+    // Les milieux des segments sont des pointND (dans le doute)
+    pointND<coord_t<Type1>> premier;
+    pointND<coord_t<Type2>> deuxieme;
+
+    for(std::size_t i=0;i<size(s1);++i)
+    {
+      premier.push_back((at(s1.at(0),i)+at(s1.at(1),i))/2);
+    }
+
+    for(std::size_t i=0;i<size(s2);++i)
+    {
+      deuxieme.push_back((at(s2.at(0),i)+at(s2.at(1),i))/2);
+    }
+
+    return distance(premier, deuxieme);
   }
 }
-
-
-
-
-
-
-/*
-//Distance entre un segment et un point
-template<typename Type1, typename Type2>
-double distance(Type1 const& s, Type2 const& p)
-{
-  //Si le segment est nul : retourner la distance entre un point du segment et le point3D
-  double lengthSegment = distance(s[0],s[1]);
-  if(lengthSegment == 0) return distance(s[0],p);
-  
-  // Coordonnées du vecteur que fait le point p avec le premier point du segment
-  auto vecAx = p.at(0) - s.at(0).at(0);
-  auto vecAy = p.at(1) - s.at(0).at(1);
-  auto vecAz = p.at(2) - s.at(0).at(2);
-
-  // Coordonnées du vecteur que fait le premier point du segment avec le second
-  auto vecBx = s.at(1).at(0) - s.at(0).at(0);
-  auto vecBy = s.at(1).at(1) - s.at(0).at(1);
-  auto vecBz = s.at(1).at(2) - s.at(0).at(2);
-
-  // On calcule le projeté orthogonal Pprime de p sur s paramétré par t
-  auto t = (vecAx * vecBx + vecAy * vecBy + vecAz * vecBz) / ( pow(vecBx,2) + pow(vecBy,2) + pow(vecBz,2) );
-
-  // Si P' € s alors t €]0;1] sinon on le ramène à l'extréminité la plus proche sur le segment
-  if( !(t >= 0 && t <= 1)) t = fmin( fmax(0,t), 1);
-
-  // On obtient la distance entre p et s en calculant la distance entre p et Pprime
-  auto Pprimex = s.at(0).at(0) + t*vecBx;
-  auto Pprimey = s.at(0).at(1) + t*vecBy;
-  auto Pprimez = s.at(0).at(2) + t*vecBz;
-
-  // retourner la racine carré de la somme des carré des coordonées
-  return std::sqrt( pow(Pprimey - p.at(1), 2) + pow(Pprimex - p.at(0),2) + pow(Pprimez - p.at(2),2) );
-}
-*/
-
-
 
 #endif
