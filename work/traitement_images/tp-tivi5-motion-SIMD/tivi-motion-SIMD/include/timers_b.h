@@ -1,5 +1,5 @@
 //#define WIN32
-#define LINUX
+//#define LINUX
 
 
 #ifdef WIN32

@@ -1,4 +1,8 @@
-
+/*
+ * Matthias Ballarini
+ * Fabien Lassié
+ * TP IA et résolution de contraintes
+ */
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -102,7 +106,7 @@ public class ClasseTP2 {
 		
 		
 	}
-	
+	/*Fonction qui evalue la chaine (la ligne)*/
 	public static String EvalChaine(String s)
 	{
 		if(s.length() != 0){
@@ -138,6 +142,7 @@ public class ClasseTP2 {
 		
 	}
 	
+	/*Fonction qui retourne l'axiom a partir de la ligne concernée*/
 	public static String getAxiomFromLine(String line)
 	{
 		

@@ -61,7 +61,7 @@ void main_FrameDifference_SSE2(int argc, char *argv[])
     dst_path = "../SD_SSE2/";
     
     // exemple pour Mac/Linux
-    src_path = "/home/matthias/car3/"; 
+    src_path = "/home/matthias/car3/FD_SSE/"; 
     filename = "car_3";
     dst_path = "/home/matthias/car3/";
     
