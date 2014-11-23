@@ -61,6 +61,7 @@ namespace objets
 //Dans un namespace sfinae définir les spécialisations de distance en utilisants les définitions précédentes
 namespace sfinae
 {
+  // Distance entre un point et un point
   template<typename Type1, typename Type2> double distance(
                           Type1 const& p1,
                           Type2 const& p2,
@@ -72,7 +73,6 @@ namespace sfinae
                           || objets::is_pointND<Type2, coord_t<Type2>>::value)
                           >::type* dummy=0)
   {
-    // Distance entre point et point
     double r{0};
     auto s = std::max(size(p1),size(p2));
 
@@ -85,7 +85,7 @@ namespace sfinae
     return std::sqrt(r);
   }
   
-  // Distance segment-point
+  // Distance entre un segment et un point
   template<typename Type, typename Point> double distance(
                           Type const& s,
                           Point const& p,
@@ -99,7 +99,6 @@ namespace sfinae
                           || objets::is_pointND<Point, coord_t<Point>>::value)
                           >::type* dummy=0) 
   {
-    // Distance entre segment et point
     //Si le segment est nul : retourner la distance entre un point du segment et le point3D
     double lengthSegment = sfinae::distance(s[0],s[1]);
     if(lengthSegment == 0) return sfinae::distance(s[0],p);
@@ -134,7 +133,7 @@ namespace sfinae
     return std::sqrt(r);
   }
 
-  // Distance point-segment
+  // Distance entre un point et un segment
   template<typename Point, typename Type> double distance(
                           Point const& p,
                           Type const& s,
@@ -151,7 +150,7 @@ namespace sfinae
     return distance(s,p);
   }
 
-  // Distance segment-segment
+  // Distance entre deux segments
   template<typename Type1, typename Type2> double distance(
                           Type1 const& s1,
                           Type2 const& s2,
@@ -179,6 +178,7 @@ namespace sfinae
       deuxieme.push_back((at(s2.at(0),i)+at(s2.at(1),i))/2);
     }
 
+    // Retourne la distance entre les milieux des deux segments
     return distance(premier, deuxieme);
   }
 }

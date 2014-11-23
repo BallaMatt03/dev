@@ -1,6 +1,6 @@
 /*
 Matthias Ballarini
-Date : Lundi 17 novembre 2014
+Date : Dimanche 23 novembre 2014
 TP noté : Programmation Générique
 
 ligne pour compiler :
@@ -136,18 +136,4 @@ int main()
   std::cout << perimetre(monPolygone2) << "\n";
   std::cout << "--------------------------------" << "\n";
 
-
 }
-
-/*
-Segment : 2D
-          3D
-          ...
-          ND
-Distance  segment-point
-          point-segment
-          segment-segment
-
-perimetre polygone
-aire polygone
-*/
