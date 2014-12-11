@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8">
+<!DOCTYPE racine SYSTEM "URI">
+
+<bouteilles>
+	<bouteille>
+		<marque>Cristaline</marque>
+		<volume unite="cl">150</volume>
+		<composants>
+			<composant charge="positive">
+			
+				<!--MIEUX-->
+				
+				<name>Magnesium</name>
+				<quantite unite="mg/L">5.5</quantite>
+				
+				<!--MOINS BIEN :-->
+				
+				<magnesium unite="mg/L">5.5</magnesium>
+				
+			</composant>
+			<composant charge="positive">
+				<name>Calcium</name>
+				<quantite unite="mg/L">71</quantite>
+			</composant>
+			<composant charge="negative">
+				<name>Chlorure</name>
+				<quantite unite="mg/L">20</quantite>
+			</composant>
+			<composant charge="negative">
+				<name>Nitrate</name>
+				<quantite unite="mg/L">1</quantite>
+			</composant>
+			<composant>
+				<name>fer</name>
+			</composant>
+		</composants>
+
+		<!--MOINS BIEN :-->
+		<autres_materiaux>
+			<materiau>fer</materiau>
+		</autres_materiaux>
+		
+		<source>
+			<ville>St-Cyr la Source</ville>
+			<departement>Loiret</departement>
+		</source>
+		<code_barre>3274080005003</code_barre>
+		<pH>7.45</pH>
+	</bouteille>
+
+	<bouteille>
+		<marque>Cristaline</marque>
+		<volume unite="cl">50</volume>
+		<ions>
+			<positifs>
+				<magnesium unite="mg/L">4</magnesium>
+				<calcium unite="mg/L">98</calcium>
+			</positifs>
+			<negatifs>
+				<chlorure unite="mg/L">3.6</chlorure>
+				<nitrate unite="mg/L">2</nitrate>
+			</negatifs>
+		</ions>
+		<source>
+			<ville>Aurele</ville>
+			<departement>Alpes Maritimes</departement>
+		</source>
+		<code_barre>3268840001008</code_barre>
+		<pH>7.4</pH>
+	</bouteille>
+
+	<bouteille>
+		<marque>Volvic</marque>
+		<ions>
+			<positifs>
+				<magnesium unite="mg/L">8.0</magnesium>
+				<calcium unite="mg/L">11.5</calcium>
+			</positifs>
+			<negatifs>
+				<chlorure unite="mg/L">13.5</chlorure>
+				<nitrate unite="mg/L">6.3</nitrate>
+			</negatifs>
+		</ions>
+		<source>
+			<departement>Puy-de-Dome</departement>
+		</source>
+		<code_barre>3057640117008</code_barre>
+		<pH>7</pH>
+			<autres_materiaux>
+			<materiau>silice</materiau>
+		</autres_materiaux>
+	</bouteille>
+</bouteilles>

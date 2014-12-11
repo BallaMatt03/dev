@@ -1,0 +1,27 @@
+<!--Bibliographie-->
+<!ELEMENT bibliographie (livres, articles)>
+<!ELEMENT livres (livre*)>
+<!ELEMENT articles (article*)>
+
+<!--Livre-->
+<!ELEMENT livre (titre, auteur+, tomes, editeur, avis?)>
+<!ELEMENT lieu_impression (#PCDATA)>
+<!ELEMENT num_ISBN (#PCDATA)>
+<!ELEMENT editeur (nom, lieu_e, lieu_impression, num_ISBN)>
+<!ELEMENT nom (#PCDATA)>
+<!ELEMENT lieu (#PCDATA)>
+<!ELEMENT tomes (tome+)>
+<!ELEMENT tome (nb_page)>
+
+<!--Article-->
+<!ELEMENT article (titre, auteur+, reference, avis?)>
+<!ELEMENT reference (nom, numero_page, annee, numero_journal)>
+<!ELEMENT nom (#PCDATA)>
+<!ELEMENT numero_page (#PCDATA)>
+<!ELEMENT annee (#PCDATA)>
+<!ELEMENT numero_journal (#PCDATA)>
+<!ELEMENT avis (#PCDATA)>
+
+<!--Commun-->
+<!ELEMENT auteur (#PCDATA)>
+<!ELEMENT titre (#PCDATA)>

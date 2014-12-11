@@ -1,0 +1,15 @@
+<!ELEMENT bouteilles (bouteille*)>
+<!ELEMENT bouteille (marque, volume, composants*, source, pH, code_barre)>
+<!ELEMENT marque (#PCDATA)>
+<!ELEMENT pH (#PCDATA)>
+<!ELEMENT code_barre (#PCDATA)>
+<!ATTLIST volume unite CDATA #REQUIRED>
+<!ELEMENT source (ville?, departement)>
+<!ELEMENT ville (#PCDATA)>
+<!ELEMENT departement (#PCDATA)>
+<!ELEMENT composants (composant)>
+<!ELEMENT composant (name, quantite?)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT quantite (#PCDATA)>
+<!ATTLIST composant charge (positive | negative) #IMPLIED>
+<!ATTLIST quantite unite CDATA #REQUIRED>
